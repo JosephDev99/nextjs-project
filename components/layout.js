@@ -3,9 +3,11 @@ import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import { Heading, Icon } from '@chakra-ui/react'
+import { FaUser } from 'react-icons/fa'
 
-const name = '[Your Name]'
-export const siteTitle = 'Next.js Sample Website'
+const name = 'Next JS'
+export const siteTitle = 'Next JS project'
 
 export default function Layout({ children, home }) {
   return (
@@ -40,34 +42,14 @@ export default function Layout({ children, home }) {
           </>
         ) : (
           <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
+            <div className={`${styles.headContainer} d-flex w-full justify-content-between align-items-center`}>
+              <Heading className={`${styles.headHeading} font-weight-normal`}>Paloma Model & Talent</Heading>
+              <Icon as={FaUser} />
+            </div>
           </>
         )}
       </header>
       <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
     </div>
   )
 }
