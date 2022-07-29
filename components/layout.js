@@ -1,9 +1,7 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
+// import Image from 'next/image'
 import Link from 'next/link'
-import { Heading, Icon } from '@chakra-ui/react'
+import { Box, Heading, Icon, Image } from '@chakra-ui/react'
 import { FaUser } from 'react-icons/fa'
 
 const name = 'Next JS'
@@ -11,7 +9,7 @@ export const siteTitle = 'Next JS project'
 
 export default function Layout({ children, home }) {
   return (
-    <div className={styles.container}>
+    <Box margin='0 auto 6rem'>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -27,29 +25,28 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
+      <Box display='flex' flexDirection='column' alignItems='center' backgroundColor='#3c8251'>
         {home ? (
           <>
             <Image
-              priority
               src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
+              borderRadius={9999}
               height={144}
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <Heading fontSize='2.5rem' lineHeight={1.2} fontWeight={800} letterSpacing='-.05rem' margin='1rem 0'>{name}</Heading>
           </>
         ) : (
           <>
-            <div className={`${styles.headContainer} d-flex w-full justify-content-between align-items-center`}>
-              <Heading className={`${styles.headHeading} font-weight-normal`}>Paloma Model & Talent</Heading>
-              <Icon as={FaUser} />
-            </div>
+            <Box padding='9px 35px 8px 20px' display='flex' width='100%' justifyContent='space-between' alignItems='center'>
+              <Heading fontSize={26} fontWeight={700} color='white'>Paloma Model & Talent</Heading>
+              <Icon as={FaUser} color='white' />
+            </Box>
           </>
         )}
-      </header>
+      </Box>
       <main>{children}</main>
-    </div>
+    </Box>
   )
 }
