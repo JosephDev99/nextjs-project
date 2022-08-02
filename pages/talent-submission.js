@@ -5,6 +5,8 @@ import Head from 'next/head'
 import {
   Box,
   Button,
+  Checkbox,
+  CheckboxGroup,
   FormControl,
   FormLabel,
   Grid,
@@ -12,15 +14,24 @@ import {
   Heading,
   Image,
   Input,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
   Select,
   Text,
-  Textarea
+  Textarea,
+  useDisclosure
 } from '@chakra-ui/react'
 
 export default function Details() {
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState('');
   const [flag, setFlag] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Layout>
@@ -65,7 +76,10 @@ export default function Details() {
                   <Text padding='20px 100px'>
                     Please note we receive dozens of submissions every day. your patience with our review process is appreciated. We are constantly looking for new talent, but if you live outside of the Southern California area and are not a strong actor with credits and a reel, we are typically not able to offer representation at this time. Our adult department is focused on experienced actors at this time, not those looking solely for modeling work.
                   </Text>
-                  <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+                  <form onSubmit={handleSubmit((data) => {
+                    setData(JSON.stringify(data))
+                    onOpen()
+                  })}>
                     <Grid templateColumns='repeat(4, 1fr)' fontSize={16} padding='12px 6px 0' gap={3}>
                       <GridItem>
                         <FormControl isRequired padding='8px 0'>
@@ -262,6 +276,27 @@ export default function Details() {
                       <Button margin='0 4px' backgroundColor='#f44336'>Cancel</Button>
                     </Box>
                   </form>
+                  <Modal isOpen={isOpen} onClose={onClose} size='6xl'>
+                    <ModalOverlay />
+                    <ModalContent backgroundColor='#424242' color='white'>
+                      <ModalHeader backgroundColor='#3a8355' borderTopRightRadius={6} borderTopLeftRadius={6} textAlign='center'>Submit Talent</ModalHeader>
+                      <ModalBody>
+                        <Text paddingTop={7} paddingLeft={2} paddingRight={2}>
+                          By checking this box you signify that you have answered these questions honestly. By submitting, you are confirming that your child (or you if over 18) has a valid Social Security number and can work legally in the United States unless your child is a newborn and a social is in process. Please add submissions@palomamodelandtalent.com to your address book or safe sender list to ensure email delivery. Please also check your spam or junk if you do not hear from us in a reasonable period of time.
+                        </Text>
+                        <Checkbox colorScheme='green' defaultChecked width='100%' justifyContent='center'>I agree to the terms</Checkbox>
+                      </ModalBody>
+
+                      <ModalFooter justifyContent='center'>
+                        <Button backgroundColor='#3a8355' mr={1}>
+                          Submit
+                        </Button>
+                        <Button backgroundColor='#f92b3a' onClick={onClose}>
+                          Back
+                        </Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
                 </Box>
               </Box>
             </Box>
