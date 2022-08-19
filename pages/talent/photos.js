@@ -26,8 +26,10 @@ export default function Photos() {
   const onDragEnd = (result) => {
     const newImages = Array.from(images);
     const [removed] = newImages.splice(result.source.index, 1);
-    newImages.splice(result.destination.index, 0, removed);
-    setImages(newImages)
+    if (result.destination) {
+      newImages.splice(result.destination.index, 0, removed);
+    }
+    setImages(newImages);
   }
 
   return (
