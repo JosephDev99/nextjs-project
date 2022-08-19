@@ -23,6 +23,13 @@ export default function Photos() {
     });
   }, []);
 
+  const onDragEnd = (result) => {
+    const newImages = Array.from(images);
+    const [removed] = newImages.splice(result.source.index, 1);
+    newImages.splice(result.destination.index, 0, removed);
+    setImages(newImages)
+  }
+
   return (
     <Layout>
       <Head>
@@ -37,7 +44,7 @@ export default function Photos() {
                 <Heading fontSize={20} fontWeight='normal'>My Photos</Heading>
                 <Text fontSize={17}>Drag Photos to Re-Order</Text>
               </Box>
-              <ImageGrid images={images} />
+              <ImageGrid images={images} onDragEnd={onDragEnd} />
             </Box>
           </GridItem>
           <GridItem display='flex' flexDirection='column' alignItems='flex-end'>
